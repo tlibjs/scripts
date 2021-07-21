@@ -6,5 +6,5 @@ module.exports = {
       babelConfig: true,
     },
   },
-  modulePathIgnorePatterns: ["dist"],
+  modulePathIgnorePatterns: ["dist", "jest-ignore"],
 };
