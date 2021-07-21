@@ -1,5 +1,5 @@
 {
-  "name": "@tlib/package-template",
+  "name": "@tlib/scripts",
   "description": "an example package published from template for typescript libraries",
   "license": "MIT",
   "main": "dist/index.js",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tlibjs/package-template.git"
+    "url": "https://github.com/tlibjs/scripts.git"
   },
   "scripts": {
     "test": "jest",
