@@ -1,6 +1,6 @@
-import nodeConfig from "./script-modules/rollup-node";
-import bundleConfig from "./script-modules/rollup-bundle";
-import dtsConfig from "./script-modules/rollup-dts";
+import nodeConfig from "./src/rollup-node";
+import bundleConfig from "./src/rollup-bundle";
+import dtsConfig from "./src/rollup-dts";
 
 export default [
   //
