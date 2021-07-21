@@ -12,16 +12,6 @@ module.exports = {
   ],
   overrides: [
     {
-      files: [
-        //
-        "./rollup.config.js",
-        "./script-modules/**/*.js",
-      ],
-      parserOptions: {
-        sourceType: "module",
-      },
-    },
-    {
       files: "*.ts",
       parser: "@typescript-eslint/parser",
       parserOptions: {
