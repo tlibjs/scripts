@@ -13,7 +13,7 @@ export default function getEntryFiles(
   let entries: (readonly [string, string])[] = [
     ...glob
       .sync("src/*.ts")
-      .filter((f) => !/(\.(test|spec)\.ts$)|(\/__test__\/)/.test(f))
+      .filter((f) => !/(\.(d|test|spec)\.ts$)|(\/__test__\/)/.test(f))
       .map((f) => [path.parse(f).name, f] as const),
     ...glob
       .sync("src/*/index.ts")
