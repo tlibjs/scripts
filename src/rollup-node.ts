@@ -3,7 +3,7 @@ import generatePackageJson from "rollup-plugin-generate-package-json";
 import { compilePlugins } from "./rollup-common";
 import { getPkgJsonBaseContents } from "./gen-pkg";
 import getEntryFiles from "./util/entry-files";
-import { chunkFileNames, typescriptDeclarationDir } from "./util/common";
+import { chunkFileNames } from "./util/common";
 import type { OutputOptions, RollupOptions } from "rollup";
 
 const commonOutputOptions: Partial<OutputOptions> = {
@@ -27,12 +27,7 @@ const nodeConfig: RollupOptions = {
       optDeps: true,
       devDeps: false,
     }),
-    ...compilePlugins({
-      typescript: {
-        declaration: true,
-        declarationDir: "dist/es/" + typescriptDeclarationDir,
-      },
-    }),
+    ...compilePlugins(),
     // https://github.com/vladshcherbin/rollup-plugin-generate-package-json
     generatePackageJson({
       baseContents: getPkgJsonBaseContents,
