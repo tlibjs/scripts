@@ -1,5 +1,6 @@
 import typescript, { RollupTypescriptOptions } from "@rollup/plugin-typescript";
 import babel, { RollupBabelInputPluginOptions } from "@rollup/plugin-babel";
+import json from "@rollup/plugin-json";
 import type { Plugin } from "rollup";
 
 export interface CompilePluginsOptions {
@@ -9,6 +10,8 @@ export interface CompilePluginsOptions {
 
 export function compilePlugins(options: CompilePluginsOptions = {}): Plugin[] {
   return [
+    // https://www.npmjs.com/package/@rollup/plugin-json
+    json(),
     // https://github.com/rollup/plugins/tree/master/packages/typescript
     typescript({
       tsconfig: "tsconfig.json",
