@@ -1,4 +1,4 @@
-import * as glob from "fast-glob";
+import glob from "fast-glob";
 import * as path from "path";
 
 export interface EntryFileInfo {
@@ -8,8 +8,14 @@ export interface EntryFileInfo {
   baseDir: string;
 }
 
+export interface EntryFileFormatterOptions {
+  /** whether to exclude baseDIr in returned filepaths */
+  excludeBaseDir: boolean;
+}
+
 export type EntryFileFormatterSync = (
   info: EntryFileInfo,
+  opts: EntryFileFormatterOptions,
 ) => readonly [string, string];
 
 export type EntryFileFormatter = (
@@ -26,6 +32,7 @@ export interface MatchFilesOptions {
 
 export interface GetEntryFilesOptionsCommon extends Partial<MatchFilesOptions> {
   keepIndexFiles?: boolean;
+  excludeBaseDir?: boolean;
 }
 
 export interface GetEntryFilesOptions extends GetEntryFilesOptionsCommon {
@@ -181,6 +188,7 @@ export function getEntryFilesSync({
   baseDir = "src",
   ignore = DEFAULT_IGNORE,
   keepIndexFiles = false,
+  excludeBaseDir = false,
 }: GetEntryFilesOptionsSync = {}): Record<string, string> {
   const files = glob.sync(
     ...getGlobArgs({
@@ -193,12 +201,18 @@ export function getEntryFilesSync({
   let entries = getModuleNamesFromFiles(files, keepIndexFiles);
 
   if (formatter) {
+    const opts = { excludeBaseDir };
     entries = entries
       .map((tuple, i) => tupleModuleNameFileToInfo(tuple, i, baseDir))
       .map((info) => {
-        const newValue = formatter(info);
+        const newValue = formatter(info, opts);
         return validateFormatterReturnValue(newValue);
       });
+  } else if (!excludeBaseDir && baseDir) {
+    entries = entries.map(([mod, file]) => [
+      mod,
+      path.posix.join(baseDir, file),
+    ]);
   }
 
   const entryFiles = Object.fromEntries(entries);
@@ -210,6 +224,7 @@ export async function getEntryFiles({
   formatter,
   patterns = DEFAULT_PATTERNS,
   baseDir = "src",
+  excludeBaseDir = false,
   ignore = DEFAULT_IGNORE,
   keepIndexFiles = false,
 }: GetEntryFilesOptions = {}): Promise<Record<string, string>> {
@@ -224,14 +239,20 @@ export async function getEntryFiles({
   let entries = getModuleNamesFromFiles(files, keepIndexFiles);
 
   if (formatter) {
+    const opts = { excludeBaseDir };
     entries = await Promise.all(
       entries
         .map((tuple, i) => tupleModuleNameFileToInfo(tuple, i, baseDir))
         .map(async (info) => {
-          const newValue = await formatter(info);
+          const newValue = await formatter(info, opts);
           return validateFormatterReturnValue(newValue);
         }),
     );
+  } else if (!excludeBaseDir && baseDir) {
+    entries = entries.map(([mod, file]) => [
+      mod,
+      path.posix.join(baseDir, file),
+    ]);
   }
 
   const entryFiles = Object.fromEntries(entries);

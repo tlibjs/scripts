@@ -14,7 +14,7 @@ const PATTERNS_SUB_DIR = [
 ];
 
 test("get entries with index files auto trimmed", async () => {
-  const input = await getEntryFiles({ baseDir });
+  const input = await getEntryFiles({ baseDir, excludeBaseDir: true });
 
   expect(input).toStrictEqual({
     dir1: "dir1/index.ts",
@@ -26,7 +26,11 @@ test("get entries with index files auto trimmed", async () => {
 });
 
 test("get entries with index files auto trimmed (sub dir)", async () => {
-  const input = await getEntryFiles({ baseDir, patterns: PATTERNS_SUB_DIR });
+  const input = await getEntryFiles({
+    baseDir,
+    patterns: PATTERNS_SUB_DIR,
+    excludeBaseDir: true,
+  });
 
   expect(input).toStrictEqual({
     "dir1/index": "dir1/index.ts",
@@ -41,7 +45,11 @@ test("get entries with index files auto trimmed (sub dir)", async () => {
 });
 
 test("get entries with index files kept", async () => {
-  const input = await getEntryFiles({ baseDir, keepIndexFiles: true });
+  const input = await getEntryFiles({
+    baseDir,
+    keepIndexFiles: true,
+    excludeBaseDir: true,
+  });
 
   expect(input).toStrictEqual({
     "dir1/index": "dir1/index.ts",
@@ -57,6 +65,7 @@ test("get entries with index files kept (sub dir)", async () => {
     baseDir,
     patterns: PATTERNS_SUB_DIR,
     keepIndexFiles: true,
+    excludeBaseDir: true,
   });
 
   expect(input).toStrictEqual({
