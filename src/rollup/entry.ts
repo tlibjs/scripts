@@ -18,8 +18,8 @@ export type EntryFileFormatter = (
   | Promise<ReturnType<EntryFileFormatterSync>>
   | ReturnType<EntryFileFormatterSync>;
 
-interface MatchFilesOptions {
-  patterns: string | string[];
+export interface MatchFilesOptions {
+  patterns: string | string[] | number;
   baseDir: string;
   ignore: string | string[];
 }
@@ -42,7 +42,7 @@ function getGlobArgs({
   ignore,
 }: MatchFilesOptions): Parameters<typeof glob> {
   return [
-    patterns,
+    typeof patterns === "number" ? resolvePatternsByDepth(patterns) : patterns,
     {
       cwd: baseDir,
       ignore: typeof ignore === "string" ? [ignore] : ignore,
@@ -55,6 +55,22 @@ export const DEFAULT_PATTERNS = [
   `./*.{${DEFAULT_PATTERNS_EXT}}`,
   `./*/index.{${DEFAULT_PATTERNS_EXT}}`,
 ];
+
+const DEFAULT_PATTERNS_WITHOUT_PREFIX = [
+  `*.{${DEFAULT_PATTERNS_EXT}}`,
+  `*/index.{${DEFAULT_PATTERNS_EXT}}`,
+];
+
+export function resolvePatternsByDepth(depth: number): string[] {
+  if (depth === 1) return DEFAULT_PATTERNS;
+
+  return new Array(depth)
+    .fill(undefined)
+    .map((_, i) =>
+      DEFAULT_PATTERNS_WITHOUT_PREFIX.map((p) => `./${"*/".repeat(i)}${p}`),
+    )
+    .flat(1);
+}
 
 export const DEFAULT_IGNORE = [
   "**/*.d.ts",
@@ -221,4 +237,22 @@ export async function getEntryFiles({
   const entryFiles = Object.fromEntries(entries);
 
   return entryFiles;
+}
+
+export async function inferSingleEntry(): Promise<string> {
+  const files = await glob(`./src/index.{${DEFAULT_PATTERNS_EXT}}`);
+
+  if (!files || files.length === 0) {
+    throw new Error("failed to infer entry file");
+  }
+
+  if (files.length > 1) {
+    throw new Error(
+      `failed to infer entry file, multiple index.* files found: ${files.join(
+        ",",
+      )}`,
+    );
+  }
+
+  return files[0];
 }
