@@ -1,6 +1,7 @@
-import nodeConfig from "./src/rollup-node";
+import { getEntryFiles } from "./src/rollup/entry";
+import { rollupNode } from "./src/rollup/node";
 
-export default [
+export default Promise.all([
   //
-  nodeConfig,
-];
+  rollupNode({ input: getEntryFiles({ patterns: 2 }) }),
+]);
