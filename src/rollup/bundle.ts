@@ -13,6 +13,7 @@ import {
 } from "../util/resolvable";
 import { genOutputOptions, GenOutputOptions } from "./output";
 import { inferSingleEntry } from "./entry";
+import { joinPath } from "../util/path";
 
 const COMMON_OUTPUT_OPTIONS: OutputOptions = {
   sourcemap: true,
@@ -73,6 +74,8 @@ export interface RollupBundleOptions
   extends Partial<ResolvableDict<RollupBundleOutputConfig>> {
   input?: Resolvable<string | undefined>;
   output?: Resolvable<GenOutputOptions, [RollupBundleOutputConfig]>;
+  inputBaseDir?: string;
+  outputBaseDir?: string;
 }
 
 export function genBundleOutputOptions(
@@ -82,9 +85,11 @@ export function genBundleOutputOptions(
 }
 
 export async function rollupBundle({
-  input = inferSingleEntry,
+  inputBaseDir = "src",
+  outputBaseDir = "dist",
+  input,
   output: _output = genBundleOutputOptions,
-  outputRootDir = "dist/bundle",
+  outputRootDir = "bundle",
   min = false,
   globalNamespace = inferGlobalNamespace,
 }: RollupBundleOptions = {}): Promise<RollupOptions> {
@@ -95,12 +100,15 @@ export async function rollupBundle({
     globalNamespace,
   });
 
-  const genOutput = await resolve(_output, conf);
+  const genOutput = await resolve(_output, {
+    ...conf,
+    outputRootDir: joinPath(outputBaseDir, conf.outputRootDir),
+  });
 
   const output = genOutputOptions(genOutput, COMMON_OUTPUT_OPTIONS);
 
   return {
-    input: inputFile ?? (await inferSingleEntry()),
+    input: inputFile ?? (await inferSingleEntry({ baseDir: inputBaseDir })),
     output,
     plugins: [
       //

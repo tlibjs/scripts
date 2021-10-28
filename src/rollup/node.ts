@@ -4,9 +4,10 @@ import { compilePlugins } from "./common-plugins";
 import { getPkgJsonBaseContents } from "./gen-pkg";
 import { chunkFileNames } from "../util/common";
 import type { InputOption, OutputOptions, RollupOptions } from "rollup";
-import { getEntryFiles } from "./entry";
+import { getEntryFiles, MatchFilesPatterns } from "./entry";
 import { Resolvable, resolve } from "../util/resolvable";
 import { genOutputOptions, GenOutputOptions } from "./output";
+import { joinPath } from "../util/path";
 
 const commonOutputOptions: OutputOptions = {
   exports: "auto",
@@ -15,7 +16,10 @@ const commonOutputOptions: OutputOptions = {
 };
 
 export interface RollupNodeOptions {
+  inputBaseDir?: string;
+  inputPatterns?: MatchFilesPatterns;
   input?: Resolvable<InputOption | undefined>;
+  outputBaseDir?: string;
   output?: Resolvable<
     GenOutputOptions | undefined,
     [{ outputRootDir: string }]
@@ -24,11 +28,21 @@ export interface RollupNodeOptions {
 }
 
 export async function rollupNode({
-  input = getEntryFiles,
+  inputBaseDir = "src",
+  inputPatterns,
+  input,
+  outputBaseDir = "dist",
   output,
-  outputRootDir = "dist",
+  outputRootDir,
 }: RollupNodeOptions = {}): Promise<RollupOptions> {
-  const inputFiles = (await resolve(input)) ?? (await getEntryFiles());
+  const inputFiles =
+    (await resolve(input)) ??
+    (await getEntryFiles({
+      baseDir: inputBaseDir,
+      patterns: inputPatterns,
+    }));
+
+  outputRootDir = joinPath(outputBaseDir, outputRootDir || "");
 
   return {
     input: inputFiles,

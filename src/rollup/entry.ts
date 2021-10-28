@@ -24,8 +24,10 @@ export type EntryFileFormatter = (
   | Promise<ReturnType<EntryFileFormatterSync>>
   | ReturnType<EntryFileFormatterSync>;
 
+export type MatchFilesPatterns = string | string[] | number;
+
 export interface MatchFilesOptions {
-  patterns: string | string[] | number;
+  patterns: MatchFilesPatterns;
   baseDir: string;
   ignore: string | string[];
 }
@@ -260,8 +262,16 @@ export async function getEntryFiles({
   return entryFiles;
 }
 
-export async function inferSingleEntry(): Promise<string> {
-  const files = await glob(`./src/index.{${DEFAULT_PATTERNS_EXT}}`);
+export interface InferSingleEntryOptions {
+  baseDir?: string;
+}
+
+export async function inferSingleEntry({
+  baseDir,
+}: InferSingleEntryOptions = {}): Promise<string> {
+  const files = await glob(`./index.{${DEFAULT_PATTERNS_EXT}}`, {
+    cwd: baseDir,
+  });
 
   if (!files || files.length === 0) {
     throw new Error("failed to infer entry file");
@@ -275,5 +285,6 @@ export async function inferSingleEntry(): Promise<string> {
     );
   }
 
-  return files[0];
+  const file = files[0];
+  return baseDir ? path.posix.join(baseDir, file) : file;
 }

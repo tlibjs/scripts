@@ -1,2 +1,5 @@
-export { rollupNode } from "./node";
-export { rollupBundle } from "./bundle";
+export * from "./bundle";
+export * from "./dts";
+export * from "./node";
+
+export * from "./options";
