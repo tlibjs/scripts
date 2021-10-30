@@ -2218,7 +2218,10 @@ __metadata:
     typescript: ^4.3.5
   peerDependencies:
     rollup: ^2.0.0
-    rollup-plugin-dts: "*"
+    rollup-plugin-dts: ^3.0.0 || ^4.0.0
+  peerDependenciesMeta:
+    rollup-plugin-dts:
+      optional: true
   languageName: unknown
   linkType: soft
 
