@@ -1,3 +1,11 @@
+# [1.0.0-alpha.2](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2021-10-30)
+
+
+### Features
+
+* allow depth as patterns to match files ([aaecee4](https://github.com/tlibjs/scripts/commit/aaecee4f1010cdde15844c2708c0405340629152))
+* include baseDir in getEntryFiles default ([1d054ca](https://github.com/tlibjs/scripts/commit/1d054ca267007ea6b284e93fc09707650c2ea734))
+
 # 1.0.0-alpha.1 (2021-10-25)
 
 
