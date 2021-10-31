@@ -8,9 +8,16 @@ module.exports = {
   extends: [
     //
     "eslint:recommended",
+    "plugin:jest/recommended",
     "plugin:prettier/recommended",
   ],
   overrides: [
+    {
+      files: ["*.mjs", "rollup*.config.js", "test.js"],
+      parserOptions: {
+        sourceType: "module",
+      },
+    },
     {
       files: "*.ts",
       parser: "@typescript-eslint/parser",
@@ -21,6 +28,7 @@ module.exports = {
       plugins: ["prettier", "@typescript-eslint"],
       extends: [
         "eslint:recommended",
+        "plugin:jest/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:prettier/recommended",

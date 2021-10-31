@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "dependencies": {
+    "tlibjs-dist": "link:../../dist"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "core-js": "^3.19.0",
+    "rollup": "^2.58.3"
+  }
+}
