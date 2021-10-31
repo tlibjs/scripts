@@ -7,4 +7,9 @@ module.exports = {
     },
   },
   modulePathIgnorePatterns: ["dist", "jest-ignore"],
+  projects: [
+    //
+    "<rootDir>",
+    "<rootDir>/test-projects/*",
+  ],
 };
