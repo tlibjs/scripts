@@ -1,9 +1,14 @@
 import externals from "rollup-plugin-node-externals";
 import generatePackageJson from "rollup-plugin-generate-package-json";
 import { compilePlugins } from "./common-plugins";
-import { getPkgJsonBaseContents } from "./gen-pkg";
+import { getEntryPointsFromRollup, getPkgJsonBaseContents } from "./gen-pkg";
 import { chunkFileNames } from "../util/common";
-import type { InputOption, OutputOptions, RollupOptions } from "rollup";
+import type {
+  InputOption,
+  OutputOptions,
+  PluginImpl,
+  RollupOptions,
+} from "rollup";
 import { getEntryFiles, MatchFilesPatterns } from "./entry";
 import { Resolvable, resolve } from "../util/resolvable";
 import { genOutputOptions, GenOutputOptions } from "./output";
@@ -26,6 +31,25 @@ export interface RollupNodeOptions {
   >;
   outputRootDir?: string;
 }
+
+const pkgModuleAfterBuild: PluginImpl = () => {
+  return {
+    name: "pkg-module-after-build",
+    async writeBundle(options) {
+      if (options.format !== "es") return;
+
+      if (!options.dir) return;
+
+      const fs = await import("fs");
+      const fsp = fs.promises;
+      await fsp.writeFile(
+        joinPath(options.dir, "package.json"),
+        JSON.stringify({ type: "module" }),
+      );
+      return undefined;
+    },
+  };
+};
 
 export async function rollupNode({
   inputBaseDir = "src",
@@ -66,9 +90,18 @@ export async function rollupNode({
       ...compilePlugins(),
       // https://github.com/vladshcherbin/rollup-plugin-generate-package-json
       generatePackageJson({
-        baseContents: getPkgJsonBaseContents,
+        baseContents: (v: Record<string, unknown>) =>
+          getPkgJsonBaseContents(v, {
+            trimPkgEntryPoints: outputRootDir,
+            genExports: getEntryPointsFromRollup({
+              input: inputFiles,
+              es: { baseDir: "es" },
+              cjs: true,
+            }),
+          }),
         outputFolder: outputRootDir,
       }),
+      pkgModuleAfterBuild({ baseDir: joinPath(outputRootDir, "es") }),
     ],
   };
 }

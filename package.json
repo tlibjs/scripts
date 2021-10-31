@@ -3,9 +3,6 @@
   "version": "1.0.0-alpha.2",
   "description": "an example package published from template for typescript libraries",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/es/index.js",
-  "types": "dist/index.d.ts",
   "keywords": [
     "tlib",
     "typescript",
@@ -93,5 +90,8 @@
   "publishConfig": {
     "access": "public"
   },
+  "workspaces": [
+    "test/built-pkg/jest-ignore"
+  ],
   "packageManager": "yarn@3.1.0"
 }

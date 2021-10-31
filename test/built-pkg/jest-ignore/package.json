@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "tlibjs-dist": "link:../../../dist"
+  }
+}
