@@ -42,10 +42,10 @@ jobs:
         run: yarn install --immutable
       - name: Ensure linted
         run: yarn run ensure-linted
-      - name: Test
-        run: yarn test
       - name: Build
         run: yarn build
+      - name: Test
+        run: yarn test
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
