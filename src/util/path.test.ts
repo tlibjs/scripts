@@ -1,4 +1,4 @@
-import { trimStartDir } from "./path";
+import { deepTrimStartDir, trimStartDir } from "./path";
 
 test("trimStartDir", () => {
   const startDirVariants = [
@@ -34,4 +34,61 @@ test("trimStartDir", () => {
       expect(trimStartDir(p, startDir)).toBe(p);
     }
   }
+});
+
+test("deepTrimStartDir", () => {
+  expect(deepTrimStartDir("./some-dir/some-file", "some-dir")).toBe(
+    "some-file",
+  );
+
+  expect(
+    deepTrimStartDir(
+      [
+        "./some-dir/some-file",
+        "dir/file2",
+        "./some-dir/file3",
+        { prop: "./some-dir/file4" },
+      ],
+      "some-dir",
+    ),
+  ).toStrictEqual(["some-file", "dir/file2", "file3", { prop: "file4" }]);
+
+  expect(
+    deepTrimStartDir(
+      { prop: "./some-dir/file", propNum: 1, propNull: null, propObj: {} },
+      "some-dir",
+    ),
+  ).toStrictEqual({
+    prop: "file",
+    propNum: 1,
+    propNull: null,
+    propObj: {},
+  });
+
+  const nested = {
+    num: 1,
+    path: "./some-dir/file",
+    obj: {
+      path: "./some-dir/dir2/file2",
+      propNull: null,
+      nested: undefined as unknown,
+    },
+  };
+
+  nested.obj.nested = nested;
+
+  const res = {
+    num: 1,
+    path: "file",
+    obj: {
+      path: "dir2/file2",
+      propNull: null,
+      nested: undefined as unknown,
+    },
+  };
+
+  res.obj.nested = res;
+
+  expect(deepTrimStartDir(nested, "some-dir")).toStrictEqual(res);
+  expect(res.obj.nested).toBe(res);
 });
