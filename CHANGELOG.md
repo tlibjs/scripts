@@ -1,3 +1,17 @@
+# [1.0.0-alpha.3](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2021-10-31)
+
+
+### Bug Fixes
+
+* circular dependency ([35ebb6a](https://github.com/tlibjs/scripts/commit/35ebb6a378ee3c11c7cf1c7588d763b2e3a0f861))
+
+
+### Features
+
+* generate pkg.exports ([46a618c](https://github.com/tlibjs/scripts/commit/46a618cfed072e5ebc55ebb10a7e7cd74298b342))
+* util path deepTrimStartDir ([b0d19eb](https://github.com/tlibjs/scripts/commit/b0d19eb84fd75c70f23eb6b8714621660b9da018))
+* util/path trimStartDir ([c5c4bb8](https://github.com/tlibjs/scripts/commit/c5c4bb8ae247b3c2c6258b622bed4b29fd759824))
+
 # [1.0.0-alpha.2](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2021-10-30)
 
 
