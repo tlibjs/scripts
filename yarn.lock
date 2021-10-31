@@ -5736,6 +5736,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-ignore-be5671@workspace:test/built-pkg/jest-ignore":
+  version: 0.0.0-use.local
+  resolution: "jest-ignore-be5671@workspace:test/built-pkg/jest-ignore"
+  dependencies:
+    tlibjs-dist: "link:../../../dist"
+  languageName: unknown
+  linkType: soft
+
 "jest-jasmine2@npm:^27.3.1":
   version: 27.3.1
   resolution: "jest-jasmine2@npm:27.3.1"
@@ -9210,6 +9218,12 @@ __metadata:
   checksum: 82a1fa2f3b00cd77c3ff0cf45380dad9e5befa8ee344d8de8076525efda4e6bd6af8f7f483e103b5834dc34bbed337fab7ac151f1d1a429a20f434a3744057b4
   languageName: node
   linkType: hard
+
+"tlibjs-dist@link:../../../dist::locator=jest-ignore-be5671%40workspace%3Atest%2Fbuilt-pkg%2Fjest-ignore":
+  version: 0.0.0-use.local
+  resolution: "tlibjs-dist@link:../../../dist::locator=jest-ignore-be5671%40workspace%3Atest%2Fbuilt-pkg%2Fjest-ignore"
+  languageName: node
+  linkType: soft
 
 "tmpl@npm:1.0.5":
   version: 1.0.5
