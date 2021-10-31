@@ -1,9 +1,8 @@
 import { InputOption, RollupOptions } from "rollup";
-import { rollupBundle, rollupNode } from ".";
-import { RollupBundleOptions } from "./bundle";
+import { rollupBundle, RollupBundleOptions } from "./bundle";
+import { rollupNode, RollupNodeOptions } from "./node";
 import { rollupDts, RollupDtsOptions } from "./dts";
 import { getEntryFiles, MatchFilesPatterns } from "./entry";
-import { RollupNodeOptions } from "./node";
 
 export interface GenRollupOptions {
   inputBaseDir?: string;
