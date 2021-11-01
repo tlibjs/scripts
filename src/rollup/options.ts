@@ -3,8 +3,10 @@ import { rollupBundle, RollupBundleOptions } from "./bundle";
 import { rollupNode, RollupNodeOptions } from "./node";
 import { rollupDts, RollupDtsOptions } from "./dts";
 import { getEntryFiles, MatchFilesPatterns } from "./entry";
+import { isTruthy } from "../util/func";
+import { CommonPluginsOptions } from "./common-plugins";
 
-export interface GenRollupOptions {
+export interface GenRollupOptions extends CommonPluginsOptions {
   inputBaseDir?: string;
   inputPatterns?: MatchFilesPatterns;
   outputBaseDir?: string;
@@ -20,9 +22,22 @@ export async function rollupOptions({
   bundle,
   node,
   dts,
+  copyMeta,
 }: GenRollupOptions = {}): Promise<RollupOptions[]> {
+  // take copyMeta options so that it can only be used once
+  const takeCopyMeta = () => {
+    const v = copyMeta;
+    copyMeta = undefined;
+    return v;
+  };
+
   const bundleOptions: RollupBundleOptions | null = bundle
-    ? { outputBaseDir, inputBaseDir, ...(bundle === true ? null : bundle) }
+    ? {
+        outputBaseDir,
+        inputBaseDir,
+        copyMeta: takeCopyMeta(),
+        ...(bundle === true ? null : bundle),
+      }
     : null;
 
   let cachedInput: Promise<InputOption> | null = null;
@@ -42,6 +57,7 @@ export async function rollupOptions({
         inputBaseDir,
         inputPatterns,
         outputBaseDir,
+        copyMeta: takeCopyMeta(),
         ...(node === true ? null : node),
       }
     : null;
@@ -51,6 +67,7 @@ export async function rollupOptions({
         input,
         inputBaseDir,
         outputBaseDir,
+        copyMeta: takeCopyMeta(),
         ...(dts === true ? null : dts),
       }
     : null;

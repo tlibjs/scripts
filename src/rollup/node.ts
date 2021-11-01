@@ -1,6 +1,10 @@
 import externals from "rollup-plugin-node-externals";
 import generatePackageJson from "rollup-plugin-generate-package-json";
-import { compilePlugins } from "./common-plugins";
+import {
+  commonPlugins,
+  CommonPluginsOptions,
+  compilePlugins,
+} from "./common-plugins";
 import { getEntryPointsFromRollup, getPkgJsonBaseContents } from "./gen-pkg";
 import { chunkFileNames } from "../util/common";
 import type {
@@ -20,7 +24,7 @@ const commonOutputOptions: OutputOptions = {
   chunkFileNames,
 };
 
-export interface RollupNodeOptions {
+export interface RollupNodeOptions extends CommonPluginsOptions {
   inputBaseDir?: string;
   inputPatterns?: MatchFilesPatterns;
   input?: Resolvable<InputOption | undefined>;
@@ -58,6 +62,7 @@ export async function rollupNode({
   outputBaseDir = "dist",
   output,
   outputRootDir,
+  ...commonPluginsOpts
 }: RollupNodeOptions = {}): Promise<RollupOptions> {
   const inputFiles =
     (await resolve(input)) ??
@@ -102,6 +107,7 @@ export async function rollupNode({
         outputFolder: outputRootDir,
       }),
       pkgModuleAfterBuild({ baseDir: joinPath(outputRootDir, "es") }),
+      ...commonPlugins({ outputBaseDir, ...commonPluginsOpts }),
     ],
   };
 }

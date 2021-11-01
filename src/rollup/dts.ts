@@ -2,8 +2,9 @@ import type { InputOption, RollupOptions } from "rollup";
 import { chunkFileNames } from "../util/common";
 import { getEntryFiles } from "./entry";
 import { Resolvable, resolve } from "../util/resolvable";
+import { commonPlugins, CommonPluginsOptions } from "./common-plugins";
 
-export interface RollupDtsOptions {
+export interface RollupDtsOptions extends CommonPluginsOptions {
   inputBaseDir?: string;
   outputBaseDir?: string;
   input?: Resolvable<InputOption | undefined>;
@@ -13,6 +14,7 @@ export async function rollupDts({
   inputBaseDir = "src",
   outputBaseDir = "dist",
   input,
+  ...commonPluginsOpts
 }: RollupDtsOptions = {}): Promise<RollupOptions> {
   const dts = (await import("rollup-plugin-dts")).default;
 
@@ -32,6 +34,10 @@ export async function rollupDts({
           .replace(/\.js$/, ".d.ts");
       },
     },
-    plugins: [dts()],
+    plugins: [
+      //
+      dts(),
+      ...commonPlugins({ outputBaseDir, ...commonPluginsOpts }),
+    ],
   };
 }
