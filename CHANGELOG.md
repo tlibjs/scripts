@@ -1,3 +1,15 @@
+# [1.0.0-alpha.8](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2021-11-01)
+
+
+### Bug Fixes
+
+* @semantic-release/exec prepareCmd ([4b18f1e](https://github.com/tlibjs/scripts/commit/4b18f1e81c9b80e003e82f51d193a8620a977d48))
+
+
+### Reverts
+
+* Revert "fix: rebuild in prepublishOnly" ([1102bde](https://github.com/tlibjs/scripts/commit/1102bde4bc604a9110eae43cb310a2f232c4294d))
+
 # [1.0.0-alpha.7](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2021-11-01)
 
 
