@@ -1,3 +1,10 @@
+# [1.0.0-alpha.7](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2021-11-01)
+
+
+### Bug Fixes
+
+* rebuild in prepublishOnly ([755b59c](https://github.com/tlibjs/scripts/commit/755b59c5feade030eeb6ff987229fd9462b39f4a))
+
 # [1.0.0-alpha.6](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2021-11-01)
 
 
