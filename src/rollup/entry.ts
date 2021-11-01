@@ -1,5 +1,6 @@
 import glob from "fast-glob";
 import * as path from "path";
+import * as DEFAULTS from "./defaults";
 
 export interface EntryFileInfo {
   moduleName: string;
@@ -187,7 +188,7 @@ function tupleModuleNameFileToInfo(
 export function getEntryFilesSync({
   formatter,
   patterns = DEFAULT_PATTERNS,
-  baseDir = "src",
+  baseDir = DEFAULTS.inputBaseDir,
   ignore = DEFAULT_IGNORE,
   keepIndexFiles = false,
   excludeBaseDir = false,
@@ -225,7 +226,7 @@ export function getEntryFilesSync({
 export async function getEntryFiles({
   formatter,
   patterns = DEFAULT_PATTERNS,
-  baseDir = "src",
+  baseDir = DEFAULTS.inputBaseDir,
   excludeBaseDir = false,
   ignore = DEFAULT_IGNORE,
   keepIndexFiles = false,

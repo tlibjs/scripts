@@ -18,6 +18,7 @@ import {
 import { genOutputOptions, GenOutputOptions } from "./output";
 import { inferSingleEntry } from "./entry";
 import { joinPath } from "../util/path";
+import * as DEFAULTS from "./defaults";
 
 const COMMON_OUTPUT_OPTIONS: OutputOptions = {
   sourcemap: true,
@@ -90,8 +91,8 @@ export function genBundleOutputOptions(
 }
 
 export async function rollupBundle({
-  inputBaseDir = "src",
-  outputBaseDir = "dist",
+  inputBaseDir = DEFAULTS.inputBaseDir,
+  outputBaseDir = DEFAULTS.outputBaseDir,
   input,
   output: _output = genBundleOutputOptions,
   outputRootDir = "bundle",

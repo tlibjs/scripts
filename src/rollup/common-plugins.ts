@@ -4,6 +4,7 @@ import json from "@rollup/plugin-json";
 import type { Plugin } from "rollup";
 import { copyMeta, CopyMetaPluginOptions } from "./copy-meta";
 import { isTruthy } from "../util/func";
+import * as DEFAULTS from "./defaults";
 
 export interface CompilePluginsOptions {
   typescript?: Partial<RollupTypescriptOptions>;
@@ -44,7 +45,7 @@ export interface CommonPluginsOptions {
 }
 
 export function commonPlugins({
-  outputBaseDir = "dist",
+  outputBaseDir = DEFAULTS.outputBaseDir,
   copyMeta: copyMetaOpts,
 }: CommonPluginsOptions = {}): Plugin[] {
   return [
