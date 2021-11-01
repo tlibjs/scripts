@@ -1,6 +1,7 @@
 import { InputOption } from "rollup";
 import { deepTrimStartDir, joinPath, trimStartDir } from "../util/path";
 import { posix as pp } from "path";
+import { isTruthy } from "../util/func";
 
 export interface GetEntryPointsFormatOptions {
   baseDir?: string;
@@ -191,7 +192,7 @@ function flatIndexEntryPoints<T>(ep: Record<string, T>): [string, T][] {
         e.endsWith("/index") ? [`./${e.slice(0, e.length - 6)}`, file] : null,
       ];
 
-      return entries.filter(<T>(v: T): v is NonNullable<T> => !!v);
+      return entries.filter(isTruthy);
     })
     .flat(1);
 }
