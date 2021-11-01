@@ -3,6 +3,7 @@ import * as DEFAULTS from "./defaults";
 import { getEntryFiles } from "./entry";
 import { Resolvable, resolve } from "../util/resolvable";
 import { commonPlugins, CommonPluginsOptions } from "./common-plugins";
+import json from "@rollup/plugin-json";
 
 export interface RollupDtsOptions extends CommonPluginsOptions {
   inputBaseDir?: string;
@@ -36,6 +37,7 @@ export async function rollupDts({
     },
     plugins: [
       //
+      json(),
       dts(),
       ...commonPlugins({ outputBaseDir, ...commonPluginsOpts }),
     ],
