@@ -28,7 +28,6 @@
     "semantic-release": "semantic-release",
     "build": "yarn run clean && rollup -c --configPlugin 'typescript={target:`es6`}'",
     "clean": "rimraf dist",
-    "prepublishOnly": "yarn run build && yarn run test",
     "prepare": "husky install"
   },
   "devDependencies": {
