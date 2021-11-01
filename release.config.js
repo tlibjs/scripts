@@ -12,8 +12,6 @@ module.exports = {
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
     ["@semantic-release/npm", { npmPublish: false }],
-    // rebuild so that new version is respected
-    ["@semantic-release/exec", { prepare: "yarn build" }],
     ["@semantic-release/npm", { pkgRoot: "dist" }],
     "@semantic-release/git",
     "@semantic-release/github",
