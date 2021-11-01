@@ -1,3 +1,10 @@
+# [1.0.0-alpha.4](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2021-11-01)
+
+
+### Features
+
+* ts-jest common config ([4728a14](https://github.com/tlibjs/scripts/commit/4728a14012c41d0482d6222be994f0ea754af93f))
+
 # [1.0.0-alpha.3](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2021-10-31)
 
 

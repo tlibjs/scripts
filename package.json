@@ -1,6 +1,6 @@
 {
   "name": "@tlib/scripts",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "an example package published from template for typescript libraries",
   "license": "MIT",
   "keywords": [
