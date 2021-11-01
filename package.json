@@ -1,6 +1,6 @@
 {
   "name": "@tlib/scripts",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "a tool to generate code for typescript libraries",
   "license": "MIT",
   "keywords": [

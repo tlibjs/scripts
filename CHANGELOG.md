@@ -1,3 +1,17 @@
+# [1.0.0-alpha.5](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2021-11-01)
+
+
+### Bug Fixes
+
+* respect outputRootDir in genBundleOutput ([01589af](https://github.com/tlibjs/scripts/commit/01589af1a67680e1d178a1bc79a52262093ae5bf))
+
+
+### Features
+
+* rollup plugin copyMeta ([2bb3dd4](https://github.com/tlibjs/scripts/commit/2bb3dd43bdcacea01a32295236a381d48b028292))
+* rollup/defaults ([244e894](https://github.com/tlibjs/scripts/commit/244e894d6fd1899c62df00fc47c44eb1198fd318))
+* util/func isTruthy ([240ad8e](https://github.com/tlibjs/scripts/commit/240ad8e30db09f741cd1e6c4caf4875bf9ff0b23))
+
 # [1.0.0-alpha.4](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2021-11-01)
 
 
