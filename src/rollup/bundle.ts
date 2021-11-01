@@ -33,7 +33,7 @@ export const BUNDLE_FORMATS: ModuleFormat[] = [
 
 export function genBundleOutput(
   format: ModuleFormat,
-  { globalNamespace, min }: RollupBundleOutputConfig,
+  { globalNamespace, min, outputRootDir }: RollupBundleOutputConfig,
 ): OutputOptions[] {
   // https://rollupjs.org/guide/en/#outputname
   const name = format === "es" ? undefined : globalNamespace;
@@ -43,7 +43,7 @@ export function genBundleOutput(
   return minArr.map(
     (min): OutputOptions => ({
       format,
-      file: `dist/bundle/${format}${min ? ".min" : ""}.js`,
+      file: joinPath(outputRootDir, `${format}${min ? ".min" : ""}.js`),
       name,
       plugins: min ? [terser()] : undefined,
     }),
