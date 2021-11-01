@@ -6,7 +6,7 @@ import {
   compilePlugins,
 } from "./common-plugins";
 import { getEntryPointsFromRollup, getPkgJsonBaseContents } from "./gen-pkg";
-import { chunkFileNames } from "../util/common";
+import * as DEFAULTS from "./defaults";
 import type {
   InputOption,
   OutputOptions,
@@ -21,7 +21,7 @@ import { joinPath } from "../util/path";
 const commonOutputOptions: OutputOptions = {
   exports: "auto",
   sourcemap: true,
-  chunkFileNames,
+  chunkFileNames: DEFAULTS.chunkFileNames,
 };
 
 export interface RollupNodeOptions extends CommonPluginsOptions {
@@ -56,10 +56,10 @@ const pkgModuleAfterBuild: PluginImpl = () => {
 };
 
 export async function rollupNode({
-  inputBaseDir = "src",
+  inputBaseDir = DEFAULTS.inputBaseDir,
   inputPatterns,
   input,
-  outputBaseDir = "dist",
+  outputBaseDir = DEFAULTS.outputBaseDir,
   output,
   outputRootDir,
   ...commonPluginsOpts
