@@ -59,7 +59,7 @@ export async function rollupOptions({
     bundleOptions && rollupBundle(bundleOptions),
     nodeOptions && rollupNode(nodeOptions),
     dtsOptions && rollupDts(dtsOptions),
-  ].filter((v): v is Promise<RollupOptions> => !!v);
+  ].filter(isTruthy);
 
   return Promise.all(options);
 }
