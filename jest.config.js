@@ -1,12 +1,6 @@
 module.exports = {
-  preset: "ts-jest",
-  testEnvironment: "node",
-  globals: {
-    "ts-jest": {
-      babelConfig: true,
-    },
-  },
-  modulePathIgnorePatterns: ["dist", "jest-ignore"],
+  ...require("./dist/ts-jest"),
+  modulePathIgnorePatterns: ["dist", "jest-ignore", "test-projects"],
   projects: [
     //
     "<rootDir>",
