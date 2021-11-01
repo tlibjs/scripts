@@ -1,3 +1,15 @@
+# [1.0.0-alpha.6](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2021-11-01)
+
+
+### Bug Fixes
+
+* rollup dts should use json plugin ([85a7381](https://github.com/tlibjs/scripts/commit/85a7381635c92f0fa840500cfd407ab6d6f7ac0c))
+
+
+### Features
+
+* export version ([25bebb9](https://github.com/tlibjs/scripts/commit/25bebb9d11ec7cf370b26e0475eecb812d73673b))
+
 # [1.0.0-alpha.5](https://github.com/tlibjs/scripts/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2021-11-01)
 
 
