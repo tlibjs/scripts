@@ -2,6 +2,8 @@ import typescript, { RollupTypescriptOptions } from "@rollup/plugin-typescript";
 import babel, { RollupBabelInputPluginOptions } from "@rollup/plugin-babel";
 import json from "@rollup/plugin-json";
 import type { Plugin } from "rollup";
+import { copyMeta, CopyMetaPluginOptions } from "./copy-meta";
+import { isTruthy } from "../util/func";
 
 export interface CompilePluginsOptions {
   typescript?: Partial<RollupTypescriptOptions>;
@@ -29,4 +31,25 @@ export function compilePlugins(options: CompilePluginsOptions = {}): Plugin[] {
       ...options.babel,
     }),
   ];
+}
+
+export interface CommonPluginsOptions {
+  outputBaseDir?: string;
+  /**
+   * whether to copy meta files to outputBaseDir.
+   *
+   * e.g. `README*` `CHANGELOG*` `LICENSE*`
+   */
+  copyMeta?: boolean | CopyMetaPluginOptions;
+}
+
+export function commonPlugins({
+  outputBaseDir = "dist",
+  copyMeta: copyMetaOpts,
+}: CommonPluginsOptions = {}): Plugin[] {
+  return [
+    copyMetaOpts
+      ? copyMeta(copyMetaOpts === true ? { to: outputBaseDir } : copyMetaOpts)
+      : null,
+  ].filter(isTruthy);
 }

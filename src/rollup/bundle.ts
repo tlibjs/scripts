@@ -1,5 +1,9 @@
 import { promises as fsp } from "fs";
-import { compilePlugins } from "./common-plugins";
+import {
+  commonPlugins,
+  CommonPluginsOptions,
+  compilePlugins,
+} from "./common-plugins";
 import { terser } from "rollup-plugin-terser";
 import { pascalCase } from "pascal-case";
 import commonjs from "@rollup/plugin-commonjs";
@@ -71,7 +75,8 @@ export interface RollupBundleOutputConfig {
 }
 
 export interface RollupBundleOptions
-  extends Partial<ResolvableDict<RollupBundleOutputConfig>> {
+  extends Partial<ResolvableDict<RollupBundleOutputConfig>>,
+    CommonPluginsOptions {
   input?: Resolvable<string | undefined>;
   output?: Resolvable<GenOutputOptions, [RollupBundleOutputConfig]>;
   inputBaseDir?: string;
@@ -92,6 +97,7 @@ export async function rollupBundle({
   outputRootDir = "bundle",
   min = false,
   globalNamespace = inferGlobalNamespace,
+  ...commonPluginsOpts
 }: RollupBundleOptions = {}): Promise<RollupOptions> {
   const { input: inputFile, ...conf } = await resolveDict({
     input,
@@ -115,6 +121,7 @@ export async function rollupBundle({
       ...compilePlugins(),
       nodeResolve(),
       commonjs(),
+      ...commonPlugins({ outputBaseDir, ...commonPluginsOpts }),
     ],
   };
 }
