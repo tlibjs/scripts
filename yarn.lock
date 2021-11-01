@@ -8407,6 +8407,7 @@ __metadata:
     core-js: ^3.19.0
     rollup: ^2.58.3
     tlibjs-dist: "link:../../dist"
+    ts-jest: ^27.0.7
   languageName: unknown
   linkType: soft
 
@@ -9347,7 +9348,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^27.0.3":
+"ts-jest@npm:^27.0.3, ts-jest@npm:^27.0.7":
   version: 27.0.7
   resolution: "ts-jest@npm:27.0.7"
   dependencies:

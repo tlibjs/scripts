@@ -3,7 +3,7 @@ import { posix as pp } from "path";
 import { rollup } from "rollup";
 import nodeResolve from "@rollup/plugin-node-resolve";
 
-const FORMATS = ["esm", "cjs"];
+const FORMATS = ["esm", "cjs"] as const;
 
 test("rollup build", async () => {
   const bundle = await rollup({
