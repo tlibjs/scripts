@@ -2207,6 +2207,7 @@ __metadata:
   peerDependencies:
     rollup: ^2.0.0
     rollup-plugin-dts: ^3.0.0 || ^4.0.0
+    typescript: ^3.0.0 || ^4.0.0
   peerDependenciesMeta:
     rollup-plugin-dts:
       optional: true
