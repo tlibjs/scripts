@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/tlibjs/scripts/compare/v1.0.0...v1.0.1) (2021-11-02)
+
+
+### Bug Fixes
+
+* list typescript as peerDependencies ([867e2b9](https://github.com/tlibjs/scripts/commit/867e2b9f3677cd2887b9040966683a11de8d189f))
+
 # 1.0.0 (2021-11-01)
 
 
